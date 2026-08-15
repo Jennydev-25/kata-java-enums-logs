@@ -2,11 +2,19 @@ package dev.jenny.logs;
 
 public class LogLine {
 
+    private LogLevel logLevel;
+
     public LogLine(String logLine) {
+        parseLogLevel(logLine);
+    }
+
+    private void parseLogLevel(String logLine) {
+        String code = logLine.substring(1, 4);
+        this.logLevel = LogLevel.fromCode(code);
     }
 
     public LogLevel getLogLevel() {
-        throw new UnsupportedOperationException("Please implement the getLogLevel() method");
+        return logLevel;
     }
 
     public String getOutputForShortLog() {
