@@ -1,22 +1,67 @@
 # 🔍 Kata Logs – Niveles y Parseo en Java
 
-> Aquí los sentimientos no son ambiguos: o eres `INFO`, o ya estás en `FATAL`
+> Aquí los sentimientos no son ambiguos: o eres `INFO`, o ya estás `FATAL`
 
-Ejercicio de **Exercism** centrado en el uso de `enum` para modelar un conjunto fijo y cerrado de niveles de log, y en aplicar encapsulación básica para parsear y transformar líneas de log. Desarrollado siguiendo **TDD** (JUnit 5 + Hamcrest), con cobertura de tests medida con **JaCoCo**.
+Ejercicio de **Exercism** en **Java 21 con Maven**, centrado en el uso de `enum` para modelar un conjunto fijo y cerrado de niveles de log, y en aplicar encapsulación básica para parsear y transformar líneas de log. Desarrollado sobre los tests dados (**JUnit 5 + Hamcrest**), con cobertura de tests medida con **JaCoCo**.
+
+---
+
+## 📸 Vista previa
+
+|                                Testing                                |                    Cobertura (JaCoCo)                    |
+| :-------------------------------------------------------------------: | :------------------------------------------------------: |
+| ![Tests en verde](assets/images/test-explorer/logs-test-explorer.png) | ![Cobertura](assets/images/coverage/coverage-jacoco.png) |
 
 ---
 
 ## 📑 Índice
 
 - [Descripción](#-descripción)
+- [Cómo reproducir el proyecto](#-cómo-reproducir-el-proyecto)
+- [Estructura del repositorio](#-estructura-del-repositorio)
+- [Testing](#-testing)
+- [Cobertura de tests](#-cobertura-de-tests-coverage)
 - [Tecnologías](#-tecnologías)
+- [Recursos](#-recursos)
 - [Autora](#-autora)
 
 ---
 
 ## 📋 Descripción
 
-**Logs, Logs, Logs!** parte de una clase `LogLine`, que recibe el texto crudo de una línea de log (`"[LVL]: mensaje"`) y expone su nivel como un valor del `enum` `LogLevel`, además de una versión abreviada de la línea en la que el nivel se codifica como un número en vez de como texto.
+**Kata Logs** es un ejercicio que parte de una clase `LogLine`, que recibe el texto crudo de una línea de log (`"[LVL]: MESSAGE"`) y expone su nivel como un valor del `enum` `LogLevel`. También expone una versión abreviada de la línea, en la que el nivel se codifica como un número en vez de como texto.
+
+### `LogLevel`
+
+Enum con los 7 niveles:
+
+- `TRACE`, `DEBUG`, `INFO`, `WARNING`, `ERROR`, `FATAL`, `UNKNOWN`
+
+Cada valor lleva dos campos propios, definidos en el constructor:
+
+- `code`: código de 3 letras (`"TRC"`, `"INF"`...). Vacío en `UNKNOWN`
+- `encodedValue`: número usado en el formato corto
+
+El propio enum sabe interpretarse a sí mismo:
+
+- `fromCode(String code)` recorre `values()` buscando coincidencia
+- Si no encuentra ninguna, devuelve `UNKNOWN`
+
+### `LogLine`
+
+No guarda el texto original de la línea de log, sino que lo parsea una sola vez en el constructor con dos métodos privados que calculan cada campo:
+
+- `parseLogLevel()`: calcula y asigna `logLevel`
+- `parseMessage()`: calcula y asigna `message`
+
+A partir de ahí, expone:
+
+- `getLogLevel()`: devuelve el `logLevel` ya calculado
+- `getOutputForShortLog()`: construye el formato corto con `String.format`, usando `logLevel.getEncodedValue()` y `message`
+
+Resolví la búsqueda del nivel con una iteración sobre los valores del enum, en vez de un `switch`. La puse dentro de `LogLevel`, no en `LogLine`, para que sea el propio nivel el que sepa reconocerse a partir de su código.
+
+> **Nota:** el enunciado describe el formato corto como `"[<ENCODED_LEVEL>]:<MESSAGE>"` (con corchetes), pero su propio ejemplo (`"6:Stack Overflow"`) y los 15 tests dados por el ejercicio no los llevan. Lo implementé sin corchetes, siguiendo los tests como criterio real. Los corchetes sí forman parte del formato de entrada (`"[<LVL>]: <MESSAGE>"`, tal y como lo define el propio enunciado), no del de salida.
 
 <details>
 <summary><strong>Enunciado completo</strong></summary>
@@ -195,6 +240,122 @@ logLine.getOutputForShortLog();
 
 </details>
 
+[Volver al índice](#-índice)
+
+---
+
+## 🚀 Cómo reproducir el proyecto
+
+### Requisitos previos
+
+| Herramienta                                                   | Requisito                  | Guía de instalación                                                                                       |
+| ------------------------------------------------------------- | -------------------------- | --------------------------------------------------------------------------------------------------------- |
+| [JDK 21](https://www.oracle.com/java/technologies/downloads/) | Instalado y en el `PATH`   | [Ver guía](https://docs.oracle.com/en/java/javase/21/install/overview-jdk-installation.html)              |
+| [Apache Maven](https://maven.apache.org/download.cgi)         | Instalado y en el `PATH`   | [Ver guía](https://maven.apache.org/install.html)                                                         |
+| [Git](https://git-scm.com/downloads)                          | Para clonar el repositorio | [Ver guía](https://git-scm.com/book/es/v2/Inicio---Sobre-el-Control-de-Versiones-Instalaci%C3%B3n-de-Git) |
+
+### Pasos
+
+**1. Comprueba que tienes Java y Maven instalados** (si algún comando no se reconoce, instálalo desde los enlaces de _Requisitos previos_):
+
+```bash
+java --version
+mvn --version
+```
+
+**2. Clona el repositorio:**
+
+```bash
+git clone https://github.com/Jennydev-25/kata-java-enums-logs.git
+```
+
+**3. Entra en la carpeta del proyecto:**
+
+```bash
+cd kata-java-enums-logs
+```
+
+**4. Ejecuta los tests** (compila y genera el reporte de cobertura de JaCoCo):
+
+```bash
+mvn test
+```
+
+El reporte de cobertura se genera en `target/site/jacoco/index.html`, que puedes abrir en el navegador
+
+[Volver al índice](#-índice)
+
+---
+
+## 📁 Estructura del repositorio
+
+```text
+kata-java-enums-logs/
+├── assets/
+│   └── images/
+│       ├── coverage/
+│       │   └── coverage-jacoco.png
+│       └── test-explorer/
+│           └── logs-test-explorer.png
+├── src/
+│   ├── main/java/dev/jenny/logs/
+│   │   ├── LogLevel.java
+│   │   └── LogLine.java
+│   └── test/java/dev/jenny/logs/
+│       └── LogsTest.java
+├── .editorconfig
+├── .gitignore
+├── pom.xml
+└── README.md
+```
+
+[Volver al índice](#-índice)
+
+---
+
+## 🧪 Testing
+
+Los tests son los 15 dados por el ejercicio, sin modificar. Cubren los 3 escenarios del enunciado: parseo de los 6 niveles conocidos, fallback a `UNKNOWN` para niveles no reconocidos, y generación del formato corto para cada nivel.
+
+![Tests en verde](assets/images/test-explorer/logs-test-explorer.png)
+
+| Test                       | Escenario                                          |
+| -------------------------- | -------------------------------------------------- |
+| `getLogLevelTrace`         | Parsea el nivel `TRC` como `LogLevel.TRACE`        |
+| `parseLogLevelDbg`         | Parsea el nivel `DBG` como `LogLevel.DEBUG`        |
+| `parseLogLevelInf`         | Parsea el nivel `INF` como `LogLevel.INFO`         |
+| `parseLogLevelWrn`         | Parsea el nivel `WRN` como `LogLevel.WARNING`      |
+| `parseLogLevelErr`         | Parsea el nivel `ERR` como `LogLevel.ERROR`        |
+| `parseLogLevelFtl`         | Parsea el nivel `FTL` como `LogLevel.FATAL`        |
+| `parseLogLevelXyz`         | Nivel desconocido `XYZ` cae en `LogLevel.UNKNOWN`  |
+| `parseLogLevelAbc`         | Nivel desconocido `ABC` cae en `LogLevel.UNKNOWN`  |
+| `getShortLogOutputUnknown` | Formato corto para nivel `UNKNOWN` → `"0:mensaje"` |
+| `getShortLogOutputTrace`   | Formato corto para nivel `TRACE` → `"1:mensaje"`   |
+| `getShortLogOutputDebug`   | Formato corto para nivel `DEBUG` → `"2:mensaje"`   |
+| `getShortLogOutputInfo`    | Formato corto para nivel `INFO` → `"4:mensaje"`    |
+| `getShortLogOutputWarning` | Formato corto para nivel `WARNING` → `"5:mensaje"` |
+| `getShortLogOutputError`   | Formato corto para nivel `ERROR` → `"6:mensaje"`   |
+| `getShortLogOutputFatal`   | Formato corto para nivel `FATAL` → `"42:mensaje"`  |
+
+[Volver al índice](#-índice)
+
+---
+
+## 📊 Cobertura de tests (coverage)
+
+Cobertura del 100% en instrucciones, ramas, líneas y métodos, verificada con **JaCoCo** al ejecutar `mvn test`.
+
+![Cobertura de tests con JaCoCo](assets/images/coverage/coverage-jacoco.png)
+
+| Métrica       | Cobertura |
+| ------------- | --------- |
+| Instrucciones | 100 %     |
+| Ramas         | 100 %     |
+| Líneas        | 100 %     |
+| Métodos       | 100 %     |
+
+[Volver al índice](#-índice)
+
 ---
 
 ## 🛠️ Tecnologías
@@ -207,6 +368,16 @@ logLine.getOutputForShortLog();
 - **[Visual Studio Code](https://code.visualstudio.com/)** — Editor usado para desarrollar y gestionar el proyecto
 - **[Markdown](https://www.markdownguide.org/)** — Lenguaje de marcado para el README
 - **[Git](https://git-scm.com/)** / **[GitHub](https://github.com/)** — Control de versiones y alojamiento del proyecto
+
+---
+
+## 📚 Recursos
+
+- **[The Java Tutorials — Enum Types](https://docs.oracle.com/javase/tutorial/java/javaOO/enum.html)** — Documentación oficial de `enum` en Java
+- **[Formatter (java.util) — Java SE 21 API](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Formatter.html)** — Documentación de `String.format`, usado en el formato corto
+- **[JUnit 5 User Guide](https://junit.org/junit5/docs/current/user-guide/)** — Documentación oficial de JUnit 5
+- **[Hamcrest – JavaHamcrest](https://hamcrest.org/JavaHamcrest/)** — Documentación de los matchers de Hamcrest
+- **[JaCoCo Maven Plugin](https://www.jacoco.org/jacoco/trunk/doc/maven.html)** — Documentación del plugin de cobertura
 
 ---
 
