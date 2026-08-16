@@ -16,7 +16,39 @@ Ejercicio de **Exercism** centrado en el uso de `enum` para modelar un conjunto 
 
 ## 📋 Descripción
 
-**Logs, Logs, Logs!** parte de una clase `LogLine`, que recibe el texto crudo de una línea de log (`"[LVL]: mensaje"`) y expone su nivel como un valor del `enum` `LogLevel`, además de una versión abreviada de la línea en la que el nivel se codifica como un número en vez de como texto.
+**Kata Logs** es un ejercicio que parte de una clase `LogLine`, que recibe el texto crudo de una línea de log (`"[LVL]: MESSAGE"`) y expone su nivel como un valor del `enum` `LogLevel`. También expone una versión abreviada de la línea, en la que el nivel se codifica como un número en vez de como texto.
+
+### `LogLevel`
+
+Enum con los 7 niveles:
+
+- `TRACE`, `DEBUG`, `INFO`, `WARNING`, `ERROR`, `FATAL`, `UNKNOWN`
+
+Cada valor lleva dos campos propios, definidos en el constructor:
+
+- `code`: código de 3 letras (`"TRC"`, `"INF"`...). Vacío en `UNKNOWN`
+- `encodedValue`: número usado en el formato corto
+
+El propio enum sabe interpretarse a sí mismo:
+
+- `fromCode(String code)` recorre `values()` buscando coincidencia
+- Si no encuentra ninguna, devuelve `UNKNOWN`
+
+### `LogLine`
+
+No guarda el texto original de la línea de log, sino que lo parsea una sola vez en el constructor con dos métodos privados que calculan cada campo:
+
+- `parseLogLevel()`: calcula y asigna `logLevel`
+- `parseMessage()`: calcula y asigna `message`
+
+A partir de ahí, expone:
+
+- `getLogLevel()`: devuelve el `logLevel` ya calculado
+- `getOutputForShortLog()`: construye el formato corto con `String.format`, usando `logLevel.getEncodedValue()` y `message`
+
+Resolví la búsqueda del nivel con una iteración sobre los valores del enum, en vez de un `switch`. La puse dentro de `LogLevel`, no en `LogLine`, para que sea el propio nivel el que sepa reconocerse a partir de su código.
+
+> **Nota:** el enunciado describe el formato corto como `"[<ENCODED_LEVEL>]:<MESSAGE>"` (con corchetes), pero su propio ejemplo (`"6:Stack Overflow"`) y los 15 tests dados por el ejercicio no los llevan. Lo implementé sin corchetes, siguiendo los tests como criterio real. Los corchetes sí forman parte del formato de entrada (`"[<LVL>]: <MESSAGE>"`, tal y como lo define el propio enunciado), no del de salida.
 
 <details>
 <summary><strong>Enunciado completo</strong></summary>
@@ -194,6 +226,8 @@ logLine.getOutputForShortLog();
 - @sanderploegsma
 
 </details>
+
+[Volver al índice](#-índice)
 
 ---
 
