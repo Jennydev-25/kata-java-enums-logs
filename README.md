@@ -12,6 +12,7 @@ Ejercicio de **Exercism** en **Java 21 con Maven**, centrado en el uso de `enum`
 - [Cómo reproducir el proyecto](#-cómo-reproducir-el-proyecto)
 - [Estructura del repositorio](#-estructura-del-repositorio)
 - [Testing](#-testing)
+- [Cobertura de tests](#-cobertura-de-tests-coverage)
 - [Tecnologías](#-tecnologías)
 - [Autora](#-autora)
 
@@ -283,6 +284,8 @@ El reporte de cobertura se genera en `target/site/jacoco/index.html`, que puedes
 kata-java-enums-logs/
 ├── assets/
 │   └── images/
+│       ├── coverage/
+│       │   └── coverage-jacoco.png
 │       └── test-explorer/
 │           └── logs-test-explorer.png
 ├── src/
@@ -324,6 +327,23 @@ Los tests son los 15 dados por el ejercicio, sin modificar. Cubren los 3 escenar
 | `getShortLogOutputWarning` | Formato corto para nivel `WARNING` → `"5:mensaje"` |
 | `getShortLogOutputError`   | Formato corto para nivel `ERROR` → `"6:mensaje"`   |
 | `getShortLogOutputFatal`   | Formato corto para nivel `FATAL` → `"42:mensaje"`  |
+
+[Volver al índice](#-índice)
+
+---
+
+## 📊 Cobertura de tests (coverage)
+
+Cobertura del 100% en instrucciones, ramas, líneas y métodos, verificada con **JaCoCo** al ejecutar `mvn test`.
+
+![Cobertura de tests con JaCoCo](assets/images/coverage/coverage-jacoco.png)
+
+| Métrica       | Cobertura |
+| ------------- | --------- |
+| Instrucciones | 100 %     |
+| Ramas         | 100 %     |
+| Líneas        | 100 %     |
+| Métodos       | 100 %     |
 
 [Volver al índice](#-índice)
 
