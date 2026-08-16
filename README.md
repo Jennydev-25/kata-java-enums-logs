@@ -1,8 +1,8 @@
 # 🔍 Kata Logs – Niveles y Parseo en Java
 
-> Aquí los sentimientos no son ambiguos: o eres `INFO`, o ya estás en `FATAL`
+> Aquí los sentimientos no son ambiguos: o eres `INFO`, o ya estás `FATAL`
 
-Ejercicio de **Exercism** centrado en el uso de `enum` para modelar un conjunto fijo y cerrado de niveles de log, y en aplicar encapsulación básica para parsear y transformar líneas de log. Desarrollado siguiendo **TDD** (JUnit 5 + Hamcrest), con cobertura de tests medida con **JaCoCo**.
+Ejercicio de **Exercism** en **Java 21 con Maven**, centrado en el uso de `enum` para modelar un conjunto fijo y cerrado de niveles de log, y en aplicar encapsulación básica para parsear y transformar líneas de log. Desarrollado sobre los tests dados (**JUnit 5 + Hamcrest**), con cobertura de tests medida con **JaCoCo**.
 
 ---
 
@@ -10,6 +10,7 @@ Ejercicio de **Exercism** centrado en el uso de `enum` para modelar un conjunto 
 
 - [Descripción](#-descripción)
 - [Cómo reproducir el proyecto](#-cómo-reproducir-el-proyecto)
+- [Estructura del repositorio](#-estructura-del-repositorio)
 - [Tecnologías](#-tecnologías)
 - [Autora](#-autora)
 
@@ -270,6 +271,25 @@ mvn test
 ```
 
 El reporte de cobertura se genera en `target/site/jacoco/index.html`, que puedes abrir en el navegador
+
+[Volver al índice](#-índice)
+
+---
+
+## 📁 Estructura del repositorio
+
+```text
+kata-java-enums-logs/
+├── src/
+│   ├── main/java/dev/jenny/logs/
+│   │   ├── LogLevel.java
+│   │   └── LogLine.java
+│   └── test/java/dev/jenny/logs/
+│       └── LogsTest.java
+├── .gitignore
+├── pom.xml
+└── README.md
+```
 
 [Volver al índice](#-índice)
 
