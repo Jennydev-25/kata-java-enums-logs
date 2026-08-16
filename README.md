@@ -11,6 +11,7 @@ Ejercicio de **Exercism** en **Java 21 con Maven**, centrado en el uso de `enum`
 - [Descripción](#-descripción)
 - [Cómo reproducir el proyecto](#-cómo-reproducir-el-proyecto)
 - [Estructura del repositorio](#-estructura-del-repositorio)
+- [Testing](#-testing)
 - [Tecnologías](#-tecnologías)
 - [Autora](#-autora)
 
@@ -280,16 +281,49 @@ El reporte de cobertura se genera en `target/site/jacoco/index.html`, que puedes
 
 ```text
 kata-java-enums-logs/
+├── assets/
+│   └── images/
+│       └── test-explorer/
+│           └── logs-test-explorer.png
 ├── src/
 │   ├── main/java/dev/jenny/logs/
 │   │   ├── LogLevel.java
 │   │   └── LogLine.java
 │   └── test/java/dev/jenny/logs/
 │       └── LogsTest.java
+├── .editorconfig
 ├── .gitignore
 ├── pom.xml
 └── README.md
 ```
+
+[Volver al índice](#-índice)
+
+---
+
+## 🧪 Testing
+
+Los tests son los 15 dados por el ejercicio, sin modificar. Cubren los 3 escenarios del enunciado: parseo de los 6 niveles conocidos, fallback a `UNKNOWN` para niveles no reconocidos, y generación del formato corto para cada nivel.
+
+![Tests en verde](assets/images/test-explorer/logs-test-explorer.png)
+
+| Test                       | Escenario                                          |
+| -------------------------- | -------------------------------------------------- |
+| `getLogLevelTrace`         | Parsea el nivel `TRC` como `LogLevel.TRACE`        |
+| `parseLogLevelDbg`         | Parsea el nivel `DBG` como `LogLevel.DEBUG`        |
+| `parseLogLevelInf`         | Parsea el nivel `INF` como `LogLevel.INFO`         |
+| `parseLogLevelWrn`         | Parsea el nivel `WRN` como `LogLevel.WARNING`      |
+| `parseLogLevelErr`         | Parsea el nivel `ERR` como `LogLevel.ERROR`        |
+| `parseLogLevelFtl`         | Parsea el nivel `FTL` como `LogLevel.FATAL`        |
+| `parseLogLevelXyz`         | Nivel desconocido `XYZ` cae en `LogLevel.UNKNOWN`  |
+| `parseLogLevelAbc`         | Nivel desconocido `ABC` cae en `LogLevel.UNKNOWN`  |
+| `getShortLogOutputUnknown` | Formato corto para nivel `UNKNOWN` → `"0:mensaje"` |
+| `getShortLogOutputTrace`   | Formato corto para nivel `TRACE` → `"1:mensaje"`   |
+| `getShortLogOutputDebug`   | Formato corto para nivel `DEBUG` → `"2:mensaje"`   |
+| `getShortLogOutputInfo`    | Formato corto para nivel `INFO` → `"4:mensaje"`    |
+| `getShortLogOutputWarning` | Formato corto para nivel `WARNING` → `"5:mensaje"` |
+| `getShortLogOutputError`   | Formato corto para nivel `ERROR` → `"6:mensaje"`   |
+| `getShortLogOutputFatal`   | Formato corto para nivel `FATAL` → `"42:mensaje"`  |
 
 [Volver al índice](#-índice)
 
