@@ -6,6 +6,14 @@ Ejercicio de **Exercism** en **Java 21 con Maven**, centrado en el uso de `enum`
 
 ---
 
+## 📸 Vista previa
+
+|                                Testing                                |                    Cobertura (JaCoCo)                    |
+| :-------------------------------------------------------------------: | :------------------------------------------------------: |
+| ![Tests en verde](assets/images/test-explorer/logs-test-explorer.png) | ![Cobertura](assets/images/coverage/coverage-jacoco.png) |
+
+---
+
 ## 📑 Índice
 
 - [Descripción](#-descripción)
@@ -14,6 +22,7 @@ Ejercicio de **Exercism** en **Java 21 con Maven**, centrado en el uso de `enum`
 - [Testing](#-testing)
 - [Cobertura de tests](#-cobertura-de-tests-coverage)
 - [Tecnologías](#-tecnologías)
+- [Recursos](#-recursos)
 - [Autora](#-autora)
 
 ---
@@ -359,6 +368,16 @@ Cobertura del 100% en instrucciones, ramas, líneas y métodos, verificada con *
 - **[Visual Studio Code](https://code.visualstudio.com/)** — Editor usado para desarrollar y gestionar el proyecto
 - **[Markdown](https://www.markdownguide.org/)** — Lenguaje de marcado para el README
 - **[Git](https://git-scm.com/)** / **[GitHub](https://github.com/)** — Control de versiones y alojamiento del proyecto
+
+---
+
+## 📚 Recursos
+
+- **[The Java Tutorials — Enum Types](https://docs.oracle.com/javase/tutorial/java/javaOO/enum.html)** — Documentación oficial de `enum` en Java
+- **[Formatter (java.util) — Java SE 21 API](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Formatter.html)** — Documentación de `String.format`, usado en el formato corto
+- **[JUnit 5 User Guide](https://junit.org/junit5/docs/current/user-guide/)** — Documentación oficial de JUnit 5
+- **[Hamcrest – JavaHamcrest](https://hamcrest.org/JavaHamcrest/)** — Documentación de los matchers de Hamcrest
+- **[JaCoCo Maven Plugin](https://www.jacoco.org/jacoco/trunk/doc/maven.html)** — Documentación del plugin de cobertura
 
 ---
 
