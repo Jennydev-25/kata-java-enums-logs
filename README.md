@@ -9,6 +9,7 @@ Ejercicio de **Exercism** centrado en el uso de `enum` para modelar un conjunto 
 ## 📑 Índice
 
 - [Descripción](#-descripción)
+- [Cómo reproducir el proyecto](#-cómo-reproducir-el-proyecto)
 - [Tecnologías](#-tecnologías)
 - [Autora](#-autora)
 
@@ -226,6 +227,49 @@ logLine.getOutputForShortLog();
 - @sanderploegsma
 
 </details>
+
+[Volver al índice](#-índice)
+
+---
+
+## 🚀 Cómo reproducir el proyecto
+
+### Requisitos previos
+
+| Herramienta                                                   | Requisito                  | Guía de instalación                                                                                       |
+| ------------------------------------------------------------- | -------------------------- | --------------------------------------------------------------------------------------------------------- |
+| [JDK 21](https://www.oracle.com/java/technologies/downloads/) | Instalado y en el `PATH`   | [Ver guía](https://docs.oracle.com/en/java/javase/21/install/overview-jdk-installation.html)              |
+| [Apache Maven](https://maven.apache.org/download.cgi)         | Instalado y en el `PATH`   | [Ver guía](https://maven.apache.org/install.html)                                                         |
+| [Git](https://git-scm.com/downloads)                          | Para clonar el repositorio | [Ver guía](https://git-scm.com/book/es/v2/Inicio---Sobre-el-Control-de-Versiones-Instalaci%C3%B3n-de-Git) |
+
+### Pasos
+
+**1. Comprueba que tienes Java y Maven instalados** (si algún comando no se reconoce, instálalo desde los enlaces de _Requisitos previos_):
+
+```bash
+java --version
+mvn --version
+```
+
+**2. Clona el repositorio:**
+
+```bash
+git clone https://github.com/Jennydev-25/kata-java-enums-logs.git
+```
+
+**3. Entra en la carpeta del proyecto:**
+
+```bash
+cd kata-java-enums-logs
+```
+
+**4. Ejecuta los tests** (compila y genera el reporte de cobertura de JaCoCo):
+
+```bash
+mvn test
+```
+
+El reporte de cobertura se genera en `target/site/jacoco/index.html`, que puedes abrir en el navegador
 
 [Volver al índice](#-índice)
 
